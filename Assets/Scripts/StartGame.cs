@@ -4,7 +4,8 @@ using UnityEngine;
 public class StartGame : MonoBehaviour
 {
     [SerializeField] private CubeFabrica _fabrica;
-    [SerializeField] private List<Transform> _startSpawnPoints  = new List<Transform>();
+    [SerializeField] private List<Transform> _startSpawnPoints = new List<Transform>();
+    [SerializeField] private float _cubeStartExplosionForce;
 
     private int _maxCubeDivisionProbability = 100;
 
@@ -15,9 +16,9 @@ public class StartGame : MonoBehaviour
 
     private void SpawnStartCubes()
     {
-        foreach (Transform spawnPoint in _startSpawnPoints) 
+        foreach (Transform spawnPoint in _startSpawnPoints)
         {
-            _fabrica.SpawnCube(spawnPoint.position,  _maxCubeDivisionProbability);
+            _fabrica.SpawnCube(spawnPoint.position, _maxCubeDivisionProbability, _cubeStartExplosionForce);
         }
-    } 
+    }
 }

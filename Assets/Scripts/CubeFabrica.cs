@@ -1,9 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeFabrica : MonoBehaviour
 {
     [SerializeField] private Cube _cubePrefab;
+
+    [SerializeField] private float _explosionForceMultiplier;
+    [SerializeField] private float _explosionRadiusMultiplier;
+
+    private float _startExplosionRadious => _cubePrefab.transform.localScale.magnitude * _explosionRadiusMultiplier;
 
     private float _scaleDivider = 2;
     private float _divisionProbabilityDivider = 2;
@@ -12,49 +16,55 @@ public class CubeFabrica : MonoBehaviour
     private int _maxCubesPerCreation = 6;
     private int _minCubesPerCreation = 2;
 
-    public Cube SpawnCube(Vector3 spawnPosition, int divisionProbability)
+    private void OnValidate()
+    {
+        _explosionForceMultiplier = Mathf.Abs(_explosionForceMultiplier);
+        _explosionRadiusMultiplier = Mathf.Abs(_explosionRadiusMultiplier);
+    }
+
+    public Cube SpawnCube(Vector3 spawnPosition, int divisionProbability, float explosionForce)
+    {
+        return SpawnCube(spawnPosition, divisionProbability, explosionForce, _startExplosionRadious);
+    }
+
+    public Cube SpawnCube(Vector3 spawnPosition, int divisionProbability, float explosionForce, float explosionRadius)
     {
         Cube cube = Instantiate(_cubePrefab, spawnPosition, Quaternion.identity);
 
         cube.SetFabrica(this);
         cube.SetDivisionProbability(divisionProbability);
         cube.SetColor(GetRandomColor());
+        cube.SetExplosionForce(explosionForce);
+        cube.SetExplosionRadious(explosionRadius);
 
         return cube;
     }
 
-    public bool TryCreateChildCubes(int creationProbability, Vector3 cubeScale, Vector3 CubePosition, out List<Rigidbody> cubes)
+    public void CreateChildCubes(IDividable dividable)
     {
-        bool isSuccess = false;
-        cubes = new List<Rigidbody>();
-
         int minProbability = 0;
         int maxProbability = 100;
 
-        if (creationProbability >= UserUtils.GenerateRandomNumber(minProbability, maxProbability))
+        if (dividable.DivisionProbability >= Random.Range(minProbability, maxProbability))
         {
-            int cubesCount = UserUtils.GenerateRandomNumber(_minCubesPerCreation, _maxCubesPerCreation);
+            int cubesCount = Random.Range(_minCubesPerCreation, _maxCubesPerCreation);
 
             for (int i = 0; i < cubesCount; i++)
             {
-                Cube cube = CreateChildCube(CubePosition, creationProbability, cubeScale);
-                cubes.Add(cube.Rigidbody);
+                CreateChildCube(dividable.Position, dividable.DivisionProbability, dividable.Scale, dividable.ExplosionRadius, dividable.ExplosionForce);
             }
-
-            isSuccess = true;
         }
-
-        return isSuccess;
     }
 
-    private Cube CreateChildCube(Vector3 cubePosition, int divisionProbability, Vector3 cubeScale)
+    private Cube CreateChildCube(Vector3 cubePosition, int divisionProbability, Vector3 cubeScale, float explosionRadius, float explosionForce)
     {
         float spawnRadius = cubeScale.magnitude;
         var yOffSetMultiplier = 2;
         Vector3 spawnYOffSet = new Vector3(0, spawnRadius * yOffSetMultiplier, 0);
         Vector3 spawnPosition = cubePosition + Random.insideUnitSphere * spawnRadius * _spherSpawnRadiusMultiplier + spawnYOffSet;
 
-        Cube cube = SpawnCube(spawnPosition, (int)(divisionProbability / _divisionProbabilityDivider));
+        Cube cube = SpawnCube(spawnPosition, (int)(divisionProbability / _divisionProbabilityDivider),
+            explosionForce * _explosionForceMultiplier, explosionRadius * _explosionRadiusMultiplier);
 
         Vector3 scale = cubeScale / _scaleDivider;
         cube.transform.localScale = scale;

@@ -20,7 +20,7 @@ public class Exploder : MonoBehaviour
 
             if (Physics.Raycast(_ray, out hit))
             {
-                if (hit.transform.TryGetComponent<IExplodable>(out IExplodable explodable))
+                if (hit.transform.TryGetComponent(out IExplodable explodable))
                 {
                     explodable.Explode();
                 }
