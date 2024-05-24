@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Exploder : MonoBehaviour
+public class Selector : MonoBehaviour
 {
     private Camera _camera;
     private Ray _ray;
@@ -20,9 +20,9 @@ public class Exploder : MonoBehaviour
 
             if (Physics.Raycast(_ray, out hit))
             {
-                if (hit.transform.TryGetComponent(out IExplodable explodable))
+                if (hit.transform.TryGetComponent(out ISelectable selectable))
                 {
-                    explodable.Explode();
+                    selectable.Select();
                 }
             }
         }

@@ -7,4 +7,6 @@ public interface IDividable
     public Vector3 Scale { get; }
     public float ExplosionForce { get; }
     public float ExplosionRadius {  get; }
+    public Rigidbody Rigidbody { get; }
+    public Vector3 LocalScale { get; }
 }

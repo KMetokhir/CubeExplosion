@@ -18,7 +18,7 @@ public class StartGame : MonoBehaviour
     {
         foreach (Transform spawnPoint in _startSpawnPoints)
         {
-            _fabrica.SpawnCube(spawnPoint.position, _maxCubeDivisionProbability, _cubeStartExplosionForce);
+            _fabrica.Spawn(spawnPoint.position, _maxCubeDivisionProbability, _cubeStartExplosionForce);
         }
     }
 }
