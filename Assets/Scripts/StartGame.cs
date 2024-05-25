@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StartGame : MonoBehaviour
 {
-    [SerializeField] private CubeFabrica _fabrica;
+    [SerializeField] private CubeFactory _factory;
     [SerializeField] private List<Transform> _startSpawnPoints = new List<Transform>();
     [SerializeField] private float _cubeStartExplosionForce;
 
@@ -18,7 +18,7 @@ public class StartGame : MonoBehaviour
     {
         foreach (Transform spawnPoint in _startSpawnPoints)
         {
-            _fabrica.Spawn(spawnPoint.position, _maxCubeDivisionProbability, _cubeStartExplosionForce);
+            _factory.Spawn(spawnPoint.position, _maxCubeDivisionProbability, _cubeStartExplosionForce);
         }
     }
 }

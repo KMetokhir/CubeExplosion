@@ -13,7 +13,7 @@ public class Cube : MonoBehaviour, IExplodable, IDividable, ISelectable
     private BoxCollider _boxCollider;
     private Rigidbody _rigidbody;
 
-    public event Action<Cube> SelectedEvent;
+    public event Action<Cube> Selected;
 
     public Rigidbody Rigidbody => _rigidbody;
     public float ExplosionForce => _explosionForce;
@@ -35,7 +35,7 @@ public class Cube : MonoBehaviour, IExplodable, IDividable, ISelectable
         if (_isInitialized)
         {
             SetInvisible();
-            SelectedEvent?.Invoke(this);
+            Selected?.Invoke(this);
             Destroy(gameObject);
         }
         else

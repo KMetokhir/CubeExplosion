@@ -18,7 +18,7 @@ public class Divider : MonoBehaviour
         _explosionRadiusMultiplier = Mathf.Abs(_explosionRadiusMultiplier);
     }
 
-    public bool TryDivide(IDividable dividable, CubeFabrica fabrica, out List<Rigidbody> dividedRigidbodies)
+    public bool TryDivide(IDividable dividable, CubeFactory fabrica, out List<Rigidbody> dividedRigidbodies)
     {
         bool isSuccess = false;
         dividedRigidbodies = new List<Rigidbody>();
@@ -42,7 +42,7 @@ public class Divider : MonoBehaviour
         return isSuccess;
     }
 
-    private IDividable CreateDividedParts(Vector3 position, int divisionProbability, Vector3 cubeScale, float explosionRadius, float explosionForce, CubeFabrica fabrica)
+    private IDividable CreateDividedParts(Vector3 position, int divisionProbability, Vector3 cubeScale, float explosionRadius, float explosionForce, CubeFactory fabrica)
     {
         Vector3 scale = cubeScale / _scaleDivider;
 

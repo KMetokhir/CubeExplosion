@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class CubeGameLogic : MonoBehaviour
 {
-    [SerializeField] private CubeFabrica _fabrica;
+    [SerializeField] private CubeFactory _factory;
     [SerializeField] private Divider _divider;
     [SerializeField] private Exploder _exploder;
 
     private void OnEnable()
     {
-        _fabrica.CubeCreatedEvent += OnCubeCreated;
+        _factory.CubeCreated += OnCubeCreated;
     }
 
     private void OnDisable()
     {
-        _fabrica.CubeCreatedEvent -= OnCubeCreated;
+        _factory.CubeCreated -= OnCubeCreated;
     }
 
     private void OnCubeCreated(Cube cube)
     {
-        cube.SelectedEvent += OnCubeSelected;
+        cube.Selected += OnCubeSelected;
     }
 
     private void OnCubeSelected(Cube cube)
     {
-        if (_divider.TryDivide(cube, _fabrica, out List<Rigidbody> dividedRigidbodies))
+        if (_divider.TryDivide(cube, _factory, out List<Rigidbody> dividedRigidbodies))
         {
             _exploder.Explode(cube, dividedRigidbodies);
         }
@@ -33,6 +33,6 @@ public class CubeGameLogic : MonoBehaviour
             _exploder.Explode(cube);
         }
 
-        cube.SelectedEvent -= OnCubeSelected;
+        cube.Selected -= OnCubeSelected;
     }
 }

@@ -300,27 +300,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 170279910}
-  - component: {fileID: 170279909}
+  - component: {fileID: 170279911}
   m_Layer: 0
-  m_Name: CubeFabrica
+  m_Name: CubeFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &170279909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170279908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64f0ca0793784c14ba869bb9d33f3d4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 1670302451977214171, guid: 485c5f910031764458ff725f5890ba59, type: 3}
 --- !u!4 &170279910
 Transform:
   m_ObjectHideFlags: 0
@@ -336,6 +323,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &170279911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170279908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6decf9dd934743b49af3efa0a8452828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cubePrefab: {fileID: 1670302451977214171, guid: 485c5f910031764458ff725f5890ba59, type: 3}
+  _explosionRadiusMultiplier: 3
 --- !u!1 &223989696
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5bac9cb97f44d4587b494633320978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fabrica: {fileID: 170279909}
+  _factory: {fileID: 170279911}
   _startSpawnPoints:
   - {fileID: 605571307971410457}
   - {fileID: 1200535599}
@@ -698,7 +699,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e46a32df0d5b6f64c8ffff767f777ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bodies: []
 --- !u!4 &550787002
 Transform:
   m_ObjectHideFlags: 0
@@ -1383,7 +1383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16e92a63c50d2a4fa68fccad209afd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fabrica: {fileID: 170279909}
+  _factory: {fileID: 170279911}
   _divider: {fileID: 1528278947}
   _exploder: {fileID: 550787001}
 --- !u!4 &1492975682
